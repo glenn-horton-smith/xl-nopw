@@ -1,27 +1,23 @@
-# uncomment next line if you need shadow passwd support
-#NEEDSHADOW= -DNEED_SHADOW
 
 X11HOME = /usr/X11R6
 
 CC	= gcc
-CFLAGS	= -O2 -Wall -I${X11HOME}/include ${NEEDSHADOW}
+CFLAGS	= -O2 -Wall -I${X11HOME}/include
 LIBS	= -L${X11HOME}/lib -lX11
-
-# Uncomment for systems with libcrypt
-LIBS   += -lcrypt
 
 # uncomment if you are running under solaris
 #LIBS   += -lnsl -lsocket
 
-OBJS = main.o
+OBJS = xl-nopw.o
+EXE = xl-nopw
 
-all:	xl
+all:	$(EXE)
 
-xl: $(OBJS)
-	$(CC) $(CFLAGS) -o xl $(OBJS) $(LIBS)
+$(EXE): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBS)
 
 clean:
 	rm -f $(OBJS)
 
 realclean: clean
-	rm -f xl
+	rm -f $(EXE)
